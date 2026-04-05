@@ -2,10 +2,8 @@ module "bucket-aquino-teste-22" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "v5.11.0"
 
-  bucket = "bucket-aquino-teste-22"
-
   create_bucket                           = true
-  attach_elb_log_delivery_policy          = false
+  attach_elb_log_delivery_policy          = true
   attach_lb_log_delivery_policy           = false
   attach_access_log_delivery_policy       = false
   attach_cloudtrail_log_delivery_policy   = false
@@ -21,7 +19,10 @@ module "bucket-aquino-teste-22" {
   attach_deny_ssec_encrypted_object_uploads = false
   attach_waf_log_delivery_policy          = false
 
-  tags = module.resource_tags.tags
+  region = "us-east-1"
+  bucket = "bucket-aquino-teste-22"
+
+  tags = local.common_tags
 
   force_destroy = false
   website       = {}
@@ -37,15 +38,15 @@ module "bucket-aquino-teste-22" {
   grant = []
   owner = {}
 
-  lifecycle_rule            = []
-  replication_configuration = {}
+  lifecycle_rule                  = []
+  replication_configuration       = {}
   server_side_encryption_configuration = {}
-  intelligent_tiering       = {}
-  object_lock_configuration = {}
-  metric_configuration      = []
-  inventory_configuration   = {}
+  intelligent_tiering             = {}
+  object_lock_configuration       = {}
+  metric_configuration            = []
+  inventory_configuration         = {}
   inventory_self_source_destination = false
-  analytics_configuration   = {}
+  analytics_configuration         = {}
   analytics_self_source_destination = false
 
   object_lock_enabled = false
@@ -54,10 +55,12 @@ module "bucket-aquino-teste-22" {
   skip_destroy_public_access_block = true
   ignore_public_acls  = true
   restrict_public_buckets = true
+
   control_object_ownership = false
-  object_ownership    = "BucketOwnerEnforced"
-  is_directory_bucket = false
-  type                = "Directory"
+  object_ownership         = "BucketOwnerEnforced"
+  is_directory_bucket      = false
+  type                     = "Directory"
   create_metadata_configuration = false
-  putin_khuylo        = true
+
+  putin_khuylo = true
 }
